@@ -16,14 +16,26 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-## テスト用コマンド
-python -c "import test; test.mygpt()"
-
 ## 【GCP初心者向け】Cloud Runでサーバーレスな超簡易Web APIを無料で作る
 ## https://qiita.com/dzbt_dzbt/items/dde54e3417ae5c17730b
 ## コマンド実行後、新しいリビジョンの編集とデプロイを忘れずに
 ## hey-abeはGCPのプロジェクト名
-gcloud builds submit --tag gcr.io/hey-abe/mygpt-api --project hey-abe
+gcloud builds submit --tag gcr.io/hey-abe/ic-light-api --project hey-abe
 
 ## アップロードされるファイルの確認
 gcloud meta list-files-for-upload
+
+テスト用コマンド
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+    "image_url": "https://i.ibb.co/YdQLs1Y/5c0bd32a8299.jpg",
+    "prompt": "magic lit",
+    "bg_source": "None"
+}' https://ic-light-api-omc3n2et7a-uc.a.run.app --max-time 1000
+
+curl -X POST -H "Content-Type: application/json" -d '{ "image_url": "https://i.ibb.co/YdQLs1Y/5c0bd32a8299.jpg", "prompt": "magic lit", "bg_source": "None" }' https://ic-light-api-omc3n2et7a-uc.a.run.app --max-time 300
+
+curl -X POST -H "Content-Type: application/json" -d '{
+    "data": "https://i.ibb.co/YdQLs1Y/5c0bd32a8299.jpg"
+}' https://mygpt-api-omc3n2et7a-uc.a.run.app --max-time 100
+```
